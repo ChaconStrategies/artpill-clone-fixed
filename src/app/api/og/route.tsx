@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
-export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
+
 
 // Font loading
 const font = fetch(
