@@ -1,5 +1,8 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
+export const runtime = 'edge';
+export const dynamic = 'force-static';
+
 
 // Font loading
 const baseURL = process.env.VERCEL_URL
