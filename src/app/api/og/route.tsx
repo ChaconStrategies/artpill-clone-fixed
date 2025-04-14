@@ -5,9 +5,14 @@ import { NextRequest } from 'next/server';
 
 
 // Font loading
-const font = fetch(
-  new URL('../../../fonts/PPNeueMontreal-Regular.woff', import.meta.url)
-).then((res) => res.arrayBuffer());
+const baseURL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000';
+
+const font = fetch(`${baseURL}/fonts/PPNeueMontreal-Regular.woff`).then(res => res.arrayBuffer());
+
+  .then((res) => res.arrayBuffer());
+
 
 export async function GET(req: NextRequest) {
   try {
