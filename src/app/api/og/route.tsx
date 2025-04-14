@@ -14,7 +14,62 @@ const font = fetch(`${baseURL}/fonts/PPNeueMontreal-Regular.woff`).then(res => r
   .then((res) => res.arrayBuffer());
 
 
-export async function GET(req: NextRequest) {
+  export async function GET(req: NextRequest) {
+    try {
+      const { searchParams } = new URL(req.url);
+  
+      // Get query parameters
+      const title = searchParams.get('title') || 'ArtPill Studio';
+      const description = searchParams.get('description') || 'Global Design Studio';
+      const mode = searchParams.get('mode') || 'Light';
+      const category = searchParams.get('category') || '';
+  
+      // Load font data
+      const fontData = await font;
+  
+      // Colors based on mode
+      const backgroundColor = mode === 'dark' ? '#121212' : '#ececec';
+      const textColor = mode === 'dark' ? '#f5f5f5' : '#121212';
+      const accentColor = '#dcfb44';
+  
+      return new ImageResponse(
+        (
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              width: '100%',
+              height: '100%',
+              padding: 50,
+              backgroundColor,
+              color: textColor,
+              fontFamily: '"PPNeueMontreal"',
+            }}
+          >
+            {/* Top bar with logo */}
+            ...
+          </div>
+        ),
+        {
+          width: 1200,
+          height: 630,
+          fonts: [
+            {
+              name: 'PPNeueMontreal',
+              data: fontData,
+              style: 'normal',
+            },
+          ],
+        }
+      );
+    } catch (e: any) {
+      console.error(e);
+      return new Response(`Failed to generate image`, { status: 500 });
+    }
+  }
+  
   try {
     const { searchParams } = new URL(req.url);
 
